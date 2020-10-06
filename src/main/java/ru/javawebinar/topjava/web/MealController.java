@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class MealController extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(MealController.class);
@@ -70,7 +71,12 @@ public class MealController extends HttpServlet {
         Long mealId;
         List<MealTo> meals;
         if (id.equals("")) {
-            mealId = mealDao.getMaxId() + 1L;
+            try {
+                mealId = mealDao.getMaxId() + 1L;
+            } catch (NoSuchElementException noSuchElementException){
+                log.debug("meals is empty. New Meal ID is 1");
+                mealId = 1L;
+            }
             log.debug("Insert Meal with ID: [{}]", mealId);
             Meal meal = new Meal(dateTime, description, calories, mealId);
             log.debug("doPost on MealController with Meal ID: [{}]", meal.getId());

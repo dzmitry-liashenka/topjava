@@ -102,6 +102,8 @@ public class MealDao implements Crudable<Meal, MealTo> {
     }
 
     public Long getMaxId() {
+        if (meals.isEmpty())
+            return 0L;
         return meals
                 .stream()
                 .mapToLong(v -> v.getId())

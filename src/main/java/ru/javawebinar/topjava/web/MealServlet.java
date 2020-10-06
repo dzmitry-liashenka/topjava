@@ -22,7 +22,7 @@ public class MealServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.debug("redirect to meals");
+        log.info("getAll");
         req.setAttribute("mealsTo", mealDao.getAllItems());
         req.getRequestDispatcher("meals.jsp").forward(req, resp);
     }
