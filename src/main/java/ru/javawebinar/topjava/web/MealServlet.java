@@ -23,15 +23,8 @@ public class MealServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.debug("redirect to meals");
-
-        req.setAttribute("mealsTo", mealDao.getAllMeals());
+        req.setAttribute("mealsTo", mealDao.getAllItems());
         req.getRequestDispatcher("meals.jsp").forward(req, resp);
-//        resp.sendRedirect("meals.jsp");
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.debug("doPost in [{}]", MealServlet.class.getSimpleName());
     }
 
 }

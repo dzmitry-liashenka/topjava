@@ -10,7 +10,7 @@ import java.util.List;
  * @param <T> Meal, User
  * @param <M> MealTo, UserTo
  */
-public interface CRUDMeals<T, M> {
+public interface Crudable<T, M> {
 
     List<M> add(T t);
 
@@ -18,7 +18,7 @@ public interface CRUDMeals<T, M> {
 
     List<M> update(T t);
 
-    List<M> getAllMeals();
+    List<M> getAllItems();
 
-    T getMealById(Long id);
+    T getItemById(Long id);
 }

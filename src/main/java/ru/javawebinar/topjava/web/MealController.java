@@ -26,7 +26,7 @@ public class MealController extends HttpServlet {
     private MealDao mealDao;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         log.debug("Initialisation MealController");
         mealDao = new MealDao();
     }
@@ -35,7 +35,7 @@ public class MealController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.debug("doGet on " + MealController.class.getSimpleName());
 
-        List<MealTo> mealsTo = mealDao.getAllMeals();
+        List<MealTo> mealsTo = mealDao.getAllItems();
         log.debug("Test Meals from [{}]: [{}]", MealServlet.class.getSimpleName(), mealsTo);
 
         String forward = "";
@@ -50,7 +50,7 @@ public class MealController extends HttpServlet {
         } else if (action.equalsIgnoreCase(EDIT_ACTION)) {
             log.debug("Action EDIT ");
             Long mealId = Long.valueOf(req.getParameter("mealId"));
-            Meal meal = mealDao.getMealById(mealId);
+            Meal meal = mealDao.getItemById(mealId);
             req.setAttribute("meal", meal);
             forward = INSERT_OR_EDIT;
         } else {
@@ -62,29 +62,28 @@ public class MealController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
         LocalDateTime dateTime = toLocalDateTime(req.getParameter("date"));
         String description = req.getParameter("description");
         int calories = Integer.valueOf(req.getParameter("calories"));
         String id = req.getParameter("mealId");
         Long mealId;
         List<MealTo> meals;
-        if (id != null) {
-            log.debug("Update Meal with ID: [{}]", id);
-            mealId = Long.valueOf(id);
-            Meal meal = new Meal(dateTime, description, calories, mealId);
-            meals = mealDao.update(meal);
-
-        } else {
+        if (id.equals("")) {
             mealId = mealDao.getMaxId() + 1L;
             log.debug("Insert Meal with ID: [{}]", mealId);
             Meal meal = new Meal(dateTime, description, calories, mealId);
             log.debug("doPost on MealController with Meal ID: [{}]", meal.getId());
             meals = mealDao.add(meal);
+        } else {
+            log.debug("Update Meal with ID: [{}]", id);
+            mealId = Long.valueOf(id);
+            Meal meal = new Meal(dateTime, description, calories, mealId);
+            meals = mealDao.update(meal);
         }
 
         req.setAttribute("mealsTo", meals);
         req.getRequestDispatcher("meals.jsp").forward(req, resp);
-
     }
 
     private LocalDateTime toLocalDateTime(String str) {

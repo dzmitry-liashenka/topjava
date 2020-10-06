@@ -5,11 +5,10 @@
   Time: 22:01
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="ftm" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%--<%@ taglib prefix="ftm" uri="http://java.sun.com/jsp/jstl/fmt" %>--%>
 
 <html>
 <head>
@@ -23,7 +22,7 @@
 <fmt:formatDate value="${parsedDate}" var="newParsedDate" type="date"
                 pattern="yyyy-MM-dd HH:mm"/>
 
-<form method="POST" action='MealController' name="frmAddMeal">
+<form method="POST" action='MealController' name="frmAddMeal" accept-charset="UTF-8">
     <input type="hidden", name="mealId" value="${meal.id}"/>
     DateTime :    <input type="datetime-local" name="date" value="${newParsedDate}" /><br>
     Description : <input type="text" name="description" value="<c:out value="${meal.description}" />"/><br>
