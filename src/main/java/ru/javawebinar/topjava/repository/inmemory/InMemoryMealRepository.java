@@ -1,7 +1,6 @@
 package ru.javawebinar.topjava.repository.inmemory;
 
 import ru.javawebinar.topjava.model.Meal;
-import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
 
@@ -24,28 +23,42 @@ public class InMemoryMealRepository implements MealRepository {
     public Meal save(Meal meal, Integer userId) {
         if (meal.isNew()) {
             meal.setId(counter.incrementAndGet());
+            meal.setUserId(userId);
             repository.put(meal.getId(), meal);
             return meal;
         }
         // handle case: update, but not present in storage
-        return repository.computeIfPresent(meal.getId(), (id, oldMeal) -> meal);
+        Meal updatedMeal = repository.values().stream().filter(m -> m.getId().equals(meal.getId()))
+                .filter(m2 -> m2.getUserId().equals(userId)).findFirst().orElse(null);
+        if (updatedMeal != null) {
+            updatedMeal = meal;
+            repository.put(meal.getId(), meal);
+        }
+
+        return updatedMeal;
     }
 
     @Override
     public boolean delete(int id, Integer userId) {
-        return repository.remove(id) != null;
+       return repository.values()
+               .removeIf(m -> m.getId().equals(id) && m.getUserId().equals(userId));
     }
 
     @Override
     public Meal get(int id, Integer userId) {
-        return repository.get(id);
+        return repository.values()
+                .stream()
+                .filter(m -> m.getId().equals(id))
+                .findFirst()
+                .filter(meal -> meal.getUserId().equals(userId))
+                .orElse(null);
     }
 
     @Override
     public Collection<Meal> getAll(Integer userId) {
         return repository.values()
                 .stream()
-                .filter(m -> m.getUserId() == userId)
+                .filter(m -> m.getUserId().equals(userId))
                 .sorted(Comparator.comparing(Meal::getDate).reversed())
                 .collect(Collectors.toList());
     }
