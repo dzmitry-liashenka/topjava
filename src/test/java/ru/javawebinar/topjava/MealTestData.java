@@ -12,6 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class MealTestData {
     public static final int MEAL_ID = 3;
     public static final int MEAL_ID_UPDATE = 2;
+    public static final int USER_ID_NOT_EXIST = 100002;
 
     public static final Meal meal4 = new Meal(4,
             LocalDateTime.of(2020, 10, 20, 07, 15, 00, 000000),

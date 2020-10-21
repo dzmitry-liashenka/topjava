@@ -2,8 +2,10 @@ package ru.javawebinar.topjava.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.postgresql.util.PSQLException;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
@@ -75,5 +77,19 @@ public class MealServiceTest {
         assertMatch(service.get(newId, USER_ID), newMeal);
     }
 
+    @Test
+    public void deleteForNotExistUser() {
+        assertThrows(NotFoundException.class, () -> service.delete(MEAL_ID, USER_ID_NOT_EXIST));
+    }
+
+    @Test
+    public void getForNotExistUser() {
+        assertThrows(NotFoundException.class, () -> service.get(MEAL_ID, USER_ID_NOT_EXIST));
+    }
+
+    @Test
+    public void updateForNotExistUser() {
+        assertThrows(DataIntegrityViolationException.class, () -> service.update(meal1, USER_ID_NOT_EXIST));
+    }
 
 }

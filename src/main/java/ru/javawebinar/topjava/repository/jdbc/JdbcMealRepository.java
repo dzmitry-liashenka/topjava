@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.Util;
+import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -55,6 +56,7 @@ public class JdbcMealRepository implements MealRepository {
         } else if (namedParameterJdbcTemplate.update(
                 "UPDATE meals SET date_time=:dateTime, description=:description, " +
                 "calories=:calories, user_id=:userId WHERE id=:id", map) == 0) {
+            return null;
         }
         return meal;
     }
