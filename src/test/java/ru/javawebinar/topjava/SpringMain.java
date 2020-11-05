@@ -1,11 +1,9 @@
 package ru.javawebinar.topjava;
 
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.MealRepository;
-import ru.javawebinar.topjava.repository.datajpa.DataJpaMealRepository;
 import ru.javawebinar.topjava.to.MealTo;
 import ru.javawebinar.topjava.web.meal.MealRestController;
 import ru.javawebinar.topjava.web.user.AdminRestController;
@@ -19,9 +17,10 @@ import java.util.List;
 public class SpringMain {
     public static void main(String[] args) {
         // java 7 automatic resource management (ARM)
-        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/inmemory.xml", "spring/spring-db.xml")) {
-//            appCtx.getEnvironment().setActiveProfiles("datajpa", "postgres");
-//            appCtx.refresh();
+        try (GenericXmlApplicationContext appCtx = new GenericXmlApplicationContext()) {
+            appCtx.getEnvironment().setActiveProfiles(Profiles.DATAJPA, Profiles.POSTGRES_DB);
+            appCtx.load("spring/spring-app.xml", "spring/inmemory.xml", "spring/spring-db.xml");
+            appCtx.refresh();
             System.out.println("Property sources:  " + appCtx.getEnvironment().getPropertySources());
 
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
