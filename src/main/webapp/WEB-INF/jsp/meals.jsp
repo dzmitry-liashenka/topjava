@@ -15,7 +15,7 @@
     <h3><a href="/topjava"><spring:message code="app.home"/></a></h3>
     <hr/>
     <h2><spring:message code="meal.title"/></h2>
-    <form method="get" action="meals">
+    <form method="get" action="filter">
         <input type="hidden" name="action" value="filter">
         <dl>
             <dt><spring:message code="meal.from-date"/></dt>
@@ -36,7 +36,7 @@
         <button type="submit"><spring:message code="meal.filter"/></button>
     </form>
     <hr/>
-    <a href="meals?action=create"><spring:message code="meal.add-meal"/></a>
+    <a href="create"><spring:message code="meal.add-meal"/></a>
     <br><br>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
@@ -59,8 +59,8 @@
                 </td>
                 <td><c:out value="${meal.description}"/></td>
                 <td><%=meal.getCalories()%></td>
-                <td><a href="meals?action=update&id=${meal.id}"><spring:message code="meal.update"/></a></td>
-                <td><a href="meals?action=delete&id=${meal.id}"><spring:message code="meal.delete"/></a></td>
+                <td><a href="update?id=${meal.id}"><spring:message code="meal.update"/></a></td>
+                <td><a href="delete?id=${meal.id}"><spring:message code="meal.delete"/></a></td>
             </tr>
         </c:forEach>
     </table>
