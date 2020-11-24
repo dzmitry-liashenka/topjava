@@ -17,6 +17,14 @@ public class MealTestData {
     public static final int NOT_FOUND = 10;
     public static final int MEAL1_ID = START_SEQ + 2;
     public static final int ADMIN_MEAL_ID = START_SEQ + 9;
+    public static final int USER_ID = 100000;
+
+    public static final String FILTER = "filter";
+    public static final String EXPECTED_WITH_FILTER = "[{\"id\":100007,\"dateTime\":\"2020-01-31T13:00:00\",\"description\":\"Обед\",\"calories\":1000,\"excess\":true},{\"id\":100006,\"dateTime\":\"2020-01-31T10:00:00\",\"description\":\"Завтрак\",\"calories\":500,\"excess\":true},{\"id\":100003,\"dateTime\":\"2020-01-30T13:00:00\",\"description\":\"Обед\",\"calories\":1000,\"excess\":false},{\"id\":100002,\"dateTime\":\"2020-01-30T10:00:00\",\"description\":\"Завтрак\",\"calories\":500,\"excess\":false}]";
+    public static final String EXPECTED_WITHOUT_FILTER = "[{\"id\":100008,\"dateTime\":\"2020-01-31T20:00:00\",\"description\":\"Ужин\",\"calories\":510,\"excess\":true},{\"id\":100007,\"dateTime\":\"2020-01-31T13:00:00\",\"description\":\"Обед\",\"calories\":1000,\"excess\":true},{\"id\":100006,\"dateTime\":\"2020-01-31T10:00:00\",\"description\":\"Завтрак\",\"calories\":500,\"excess\":true},{\"id\":100005,\"dateTime\":\"2020-01-31T00:00:00\",\"description\":\"Еда на граничное значение\",\"calories\":100,\"excess\":true},{\"id\":100004,\"dateTime\":\"2020-01-30T20:00:00\",\"description\":\"Ужин\",\"calories\":500,\"excess\":false},{\"id\":100003,\"dateTime\":\"2020-01-30T13:00:00\",\"description\":\"Обед\",\"calories\":1000,\"excess\":false},{\"id\":100002,\"dateTime\":\"2020-01-30T10:00:00\",\"description\":\"Завтрак\",\"calories\":500,\"excess\":false}]";
+    public static final String START_DATE_TIME = "2020-01-30T05:05:30";
+    public static final String END_DATE_TIME = "2020-01-31T13:22:30";
+
 
     public static final Meal meal1 = new Meal(MEAL1_ID, of(2020, Month.JANUARY, 30, 10, 0), "Завтрак", 500);
     public static final Meal meal2 = new Meal(MEAL1_ID + 1, of(2020, Month.JANUARY, 30, 13, 0), "Обед", 1000);
@@ -29,8 +37,6 @@ public class MealTestData {
     public static final Meal adminMeal2 = new Meal(ADMIN_MEAL_ID + 1, of(2020, Month.JANUARY, 31, 21, 0), "Админ ужин", 1500);
 
     public static final List<Meal> meals = List.of(meal7, meal6, meal5, meal4, meal3, meal2, meal1);
-
-//    public static final List<MealTo> mealsTo =
 
     public static Meal getNew() {
         return new Meal(null, of(2020, Month.FEBRUARY, 1, 18, 0), "Созданный ужин", 300);
