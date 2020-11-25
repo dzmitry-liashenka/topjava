@@ -72,12 +72,38 @@ class MealRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getBetween() throws Exception {
-        perform(MockMvcRequestBuilders.post(REST_URL + FILTER)
-                .param("start", START_DATE_TIME)
-                .param("end", END_DATE_TIME))
+        perform(MockMvcRequestBuilders.get(REST_URL + FILTER)
+                .param("startDate", START_DATE)
+                .param("startTime", START_TIME)
+                .param("endDate", END_DATE)
+                .param("endTime", END_TIME))
                 .andDo(print())
                 .andExpect(status().isOk())
         .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
         .andExpect(content().string(EXPECTED_WITH_FILTER));
+    }
+
+    @Test
+    void getBetweenWithoutStartDateAndStartTime() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL + FILTER)
+                .param("startDate", "")
+                .param("startTime", "")
+                .param("endDate", END_DATE)
+                .param("endTime", END_TIME))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    void getBetweenWithoutEndDateAndEndTime() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL + FILTER)
+                .param("startDate", START_DATE)
+                .param("startTime", START_TIME)
+                .param("endDate", "")
+                .param("endTime", ""))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
 }
