@@ -7,8 +7,9 @@
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
-<section>
-    <h3><spring:message code="meal.title"/></h3>
+<div class="jumbotron pt-4">
+    <div class="container">
+    <h3 class="text-center"><spring:message code="meal.title"/></h3>
 
     <form method="get" action="meals/filter">
         <dl>
@@ -27,12 +28,19 @@
             <dt><spring:message code="meal.endTime"/>:</dt>
             <dd><input type="time" name="endTime" value="${param.endTime}"></dd>
         </dl>
-        <button type="submit"><spring:message code="meal.filter"/></button>
+        <button class="btn btn-primary">
+            <span class="fa fa-filter"></span>
+            <spring:message code="meal.filter"/>
+        </button>
     </form>
     <hr>
-    <a href="meals/create"><spring:message code="meal.add"/></a>
+<%--    <a href="meals/create"><spring:message code="meal.add"/></a>--%>
+    <button class="btn btn-primary">
+        <span class="fa fa-plus"></span>
+        <a><spring:message code="meal.add"/></a>
+    </button>
     <hr>
-    <table border="1" cellpadding="8" cellspacing="0">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th><spring:message code="meal.dateTime"/></th>
@@ -58,7 +66,8 @@
             </tr>
         </c:forEach>
     </table>
-</section>
+    </div>
+</div>
 <jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>
