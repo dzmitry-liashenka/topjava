@@ -2,6 +2,13 @@ var form;
 
 function makeEditable() {
     form = $('#detailsForm');
+
+    $(".delete").click(function () {
+        if (confirm('Are you sure?')) {
+            deleteRow($(this).parent().parent().attr("id"));
+        }
+    });
+
     $(document).ajaxError(function (event, jqXHR, options, jsExc) {
         failNoty(jqXHR);
     });
@@ -16,7 +23,6 @@ function add() {
 }
 
 function deleteRow(id) {
-    console.log("deleteRow: id: " + id)
     if (confirm("Are you sure?")) {
         $.ajax({
             url: ctx.ajaxUrl + id,
