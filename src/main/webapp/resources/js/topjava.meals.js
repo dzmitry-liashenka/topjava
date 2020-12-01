@@ -36,3 +36,7 @@ $(function () {
     makeEditable();
 })
 ;
+
+function clearFilter() {
+    $("#filter").find(":input").val("");
+}
