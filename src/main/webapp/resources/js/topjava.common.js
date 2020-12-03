@@ -23,22 +23,25 @@ function add() {
 }
 
 function deleteRow(id) {
-    if (confirm("Are you sure?")) {
-        $.ajax({
-            url: ctx.ajaxUrl + id,
-            type: "DELETE"
-        }).done(function () {
-            updateTable();
-            successNoty("Deleted");
-        });
-    }
-
+    $.ajax({
+        url: ctx.ajaxUrl + id,
+        type: "DELETE"
+    }).done(function () {
+        updateTable();
+        successNoty("Deleted");
+    });
 }
 
 function updateTable() {
     $.get(ctx.ajaxUrl, function (data) {
         ctx.datatableApi.clear().rows.add(data).draw();
     });
+}
+
+function updateTableWithFilter(result) {
+    console.log("updateTableWith Filter..... und data: " + result)
+    ctx.datatableApi.clear().rows.add(result).draw();
+    console.log("data after draw: " + result)
 }
 
 function save() {

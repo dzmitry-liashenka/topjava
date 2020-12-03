@@ -1,5 +1,6 @@
 var ctx;
 
+// function getDataTable() {
 $(function () {
     ctx = {
         ajaxUrl: "ui/meals/",
@@ -34,9 +35,33 @@ $(function () {
         })
     };
     makeEditable();
-})
-;
+});
+
+// }
+
 
 function clearFilter() {
     $("#filter").find(":input").val("");
+}
+
+function filter() {
+    console.log("filter");
+
+    $.ajax({
+        url: "ui/meals/filter",
+        type: "GET",
+        data: {
+            "startDate": $('#startDate').val(),
+            "endDate": $('#endDate').val(),
+            "startTime": $('#startTime').val(),
+            "endTime": $('#endTime').val()
+        }
+    }).done(function (result) {
+        alert("before foreach")
+        console.log("success, data: " + result.forEach())
+        alert("after foreach")
+    })
+        .fail(function (error) {
+            console.log("error: " + error)
+        });
 }
