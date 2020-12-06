@@ -47,6 +47,7 @@ public class MealService {
 
     public void update(MealTo mealTo, int userId) {
         Meal meal = get(mealTo.getId(), userId);
+        MealsUtil.updateFromTo(mealTo, meal);
         repository.save(meal, userId);
     }
 
