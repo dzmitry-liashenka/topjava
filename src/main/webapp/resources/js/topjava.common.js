@@ -44,10 +44,12 @@ function updateTableByData(data) {
 }
 
 function save() {
+    let values = form.serialize();
+    values += '&excess=false'
     $.ajax({
         type: "POST",
         url: ctx.ajaxUrl,
-        data: form.serialize()
+        data: values
     }).done(function () {
         $("#editRow").modal("hide");
         ctx.updateTable();
