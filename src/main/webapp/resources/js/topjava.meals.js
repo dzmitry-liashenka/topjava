@@ -1,6 +1,32 @@
 var ctx;
 var mealAjaxUrl = "profile/meals/";
 
+    $('#startDate').datetimepicker({
+        timepicker:false,
+        // format:'d-m-Y'
+        format:'Y-m-d'
+    });
+
+    $('#startTime').datetimepicker({
+        datepicker:false,
+        format:'H:m'
+    });
+
+    $('#endDate').datetimepicker({
+        timepicker:false,
+        format:'Y-m-d'
+    });
+
+    $('#endTime').datetimepicker({
+        datepicker:false,
+        format:'H:m'
+    });
+
+    $('#dateTime').datetimepicker({
+        // dateformat:'Y-m-d',
+        // timeformat:'H:m'
+    });
+
 function updateFilteredTable() {
     $.ajax({
         type: "GET",

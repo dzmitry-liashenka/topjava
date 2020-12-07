@@ -42,7 +42,7 @@ public class DateTimeFormatters {
 
         @Override
         public LocalDateTime parse(String text, Locale locale) {
-            DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm[:ss]");
             LocalDateTime localDateTime = LocalDateTime.parse(text, formatter);
             return localDateTime;
         }
