@@ -16,7 +16,7 @@ function makeEditable(datatableOpts) {
 
     form = $('#detailsForm');
     $(document).ajaxError(function (event, jqXHR, options, jsExc) {
-        failNoty(jqXHR);
+        failNoty(JSON.parse(jqXHR.responseText));
     });
 
     // solve problem with cache in IE: https://stackoverflow.com/a/4303862/548473
@@ -94,11 +94,14 @@ function successNoty(key) {
 }
 
 function failNoty(jqXHR) {
+    console.log("fail noty")
     closeNoty();
-    var errorInfo = jqXHR.responseJSON;
+    let status = jqXHR.status;
+    let type = jqXHR.type;
+    let detail = jqXHR.detail;
     failedNote = new Noty({
-        text: "<span class='fa fa-lg fa-exclamation-circle'></span> &nbsp;" + i18n["common.errorStatus"] + ": " + jqXHR.status +
-            "<br>" + errorInfo.type + "<br>" + errorInfo.detail,
+        text: "<span class='fa fa-lg fa-exclamation-circle'></span> &nbsp;" + i18n["common.errorStatus"] + ": " + status +
+            "<br>" + type + "<br>" + detail,
         type: "error",
         layout: "bottomRight"
     }).show();
